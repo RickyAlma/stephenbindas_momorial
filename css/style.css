@@ -103,6 +103,7 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 .all-tributes-link:hover { background: #d9a875; color: #241614; }
 .tribute-list .tribute-card h4,
 .all-tributes-list .tribute-card h3 { display: block; margin: 0; color: #fff8ef; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 2.1rem); font-weight: normal; line-height: 1.2; }
+.tribute-author-name { display: block; visibility: visible; opacity: 1; margin: 0; color: #fff8ef !important; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 2.1rem); font-weight: normal; line-height: 1.2; }
 .all-tributes-link { background: #d9a875; color: #241614; font-weight: bold; }
 .all-tributes-link:hover { background: #edc18f; color: #241614; }
 .guestbook-page { min-height: 100vh; background: var(--paper); }

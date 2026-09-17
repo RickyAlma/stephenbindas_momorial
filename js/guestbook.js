@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('article');
       card.className = 'tribute-card';
       const title = document.createElement('h3');
+      title.className = 'tribute-author-name';
       title.textContent = tribute.fullName;
       const meta = document.createElement('div');
       meta.className = 'tribute-meta';
