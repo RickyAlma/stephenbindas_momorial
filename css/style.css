@@ -124,6 +124,9 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 .guestbook-feed .tribute-card { padding: 30px clamp(20px, 5vw, 48px); border: 0; border-bottom: 1px solid rgba(218,174,135,.3); border-radius: 0; box-shadow: none; }
 .guestbook-feed .tribute-card:last-child { border-bottom: 0; }
 .guestbook-feed .tribute-card h3 { margin: 0; color: #fff8ef; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: normal; line-height: 1.2; }
+.guestbook-feed .tribute-card { display: block; background: #4a2923; color: #fff8ef; }
+.guestbook-feed .tribute-author-label { display: block; margin-bottom: 6px; color: #f0bd88; font-size: .68rem; font-weight: bold; letter-spacing: .16em; text-transform: uppercase; }
+.guestbook-feed .tribute-author-name { display: block !important; visibility: visible !important; opacity: 1 !important; color: #fff8ef !important; }
 .guestbook-feed .tribute-meta { margin-bottom: 16px; }
 .guestbook-feed .tribute-card p { max-width: 700px; }
 .read-more { margin-top: 14px; padding: 0; border: 0; background: transparent; color: #f0bd88; cursor: pointer; font: inherit; font-size: .75rem; font-weight: bold; letter-spacing: .08em; text-transform: uppercase; }

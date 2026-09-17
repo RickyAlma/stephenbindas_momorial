@@ -16,13 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const title = document.createElement('h3');
       title.className = 'tribute-author-name';
       title.textContent = tribute.fullName;
+      const authorLabel = document.createElement('span');
+      authorLabel.className = 'tribute-author-label';
+      authorLabel.textContent = 'Shared by';
       const meta = document.createElement('div');
       meta.className = 'tribute-meta';
       meta.textContent = [tribute.relationship, formatDate(tribute.createdAt)].filter(Boolean).join('  •  ');
       const message = document.createElement('p');
       const isLong = tribute.message.length > previewLength;
       message.textContent = isLong ? `${tribute.message.slice(0, previewLength).trim()}...` : tribute.message;
-      card.append(title, meta, message);
+      card.append(authorLabel, title, meta, message);
       if (isLong) {
         const readMore = document.createElement('button');
         readMore.className = 'read-more';
