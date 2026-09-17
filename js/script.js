@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselNext = document.querySelector('#carousel-next');
   const carouselStatus = document.querySelector('#carousel-status');
   const pageSize = 4;
+  const previewLength = 300;
   let visibleCount = pageSize;
   let activeTributes = [];
   let carouselIndex = 0;
@@ -124,8 +125,23 @@ document.addEventListener('DOMContentLoaded', () => {
       meta.className = 'tribute-meta';
       meta.textContent = [tribute.relationship, formatDate(tribute.createdAt)].filter(Boolean).join('  •  ');
       const message = document.createElement('p');
-      message.textContent = tribute.message;
+      const isLong = tribute.message.length > previewLength;
+      message.textContent = isLong ? `${tribute.message.slice(0, previewLength).trim()}...` : tribute.message;
       card.append(title, meta, message);
+      if (isLong) {
+        const readMore = document.createElement('button');
+        readMore.className = 'read-more';
+        readMore.type = 'button';
+        readMore.textContent = 'Read more';
+        readMore.setAttribute('aria-expanded', 'false');
+        readMore.addEventListener('click', () => {
+          const expanded = readMore.getAttribute('aria-expanded') === 'true';
+          message.textContent = expanded ? `${tribute.message.slice(0, previewLength).trim()}...` : tribute.message;
+          readMore.textContent = expanded ? 'Read more' : 'Show less';
+          readMore.setAttribute('aria-expanded', String(!expanded));
+        });
+        card.append(readMore);
+      }
       tributeList.append(card);
     });
     carouselIndex = 0;
