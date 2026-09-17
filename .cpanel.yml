@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nextdgey/stephenbindas.xyz/
+    - /bin/cp -R ./* $DEPLOYPATH
