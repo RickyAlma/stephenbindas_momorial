@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/nextdgey/stephenbindas.xyz/
-    - /bin/cp -R ./* $DEPLOYPATH
+    - /usr/bin/rsync -a --exclude='.git' --exclude='.gitignore' ./ $DEPLOYPATH

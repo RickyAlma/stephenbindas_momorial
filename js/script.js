@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselPrev = document.querySelector('#carousel-prev');
   const carouselNext = document.querySelector('#carousel-next');
   const carouselStatus = document.querySelector('#carousel-status');
-  const storageKey = 'memorialTributes';
   const pageSize = 4;
   let visibleCount = pageSize;
   let activeTributes = [];
@@ -68,12 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   messageInput.addEventListener('input', updateWordCount);
 
-  const getTributes = () => {
-    try { return JSON.parse(localStorage.getItem(storageKey)) || []; } catch (error) { return []; }
+  const getTributes = async () => {
+    const response = await fetch('api/tributes.php', { headers: { Accept: 'application/json' } });
+    if (!response.ok) throw new Error('Unable to load tributes.');
+    const data = await response.json();
+    return Array.isArray(data.tributes) ? data.tributes : [];
   };
-  const saveTributes = (tributes) => {
-    // localStorage is suitable for this frontend/demo only; production needs a real backend/database.
-    localStorage.setItem(storageKey, JSON.stringify(tributes));
+  const saveTribute = async (tribute) => {
+    const response = await fetch('api/tributes.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(tribute),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Unable to save tribute.');
+    return data.tribute;
   };
   const formatDate = (date) => new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(date));
   const updateCarousel = () => {
@@ -96,9 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.clearInterval(carouselTimer);
     if (visibleTributeCount() > 1) carouselTimer = window.setInterval(() => moveCarousel(1), 6500);
   };
-  const renderTributes = () => {
+  const renderTributes = async () => {
     const query = searchInput.value.trim().toLowerCase();
-    activeTributes = getTributes().filter((tribute) => `${tribute.fullName} ${tribute.relationship} ${tribute.message}`.toLowerCase().includes(query));
+    try {
+      activeTributes = (await getTributes()).filter((tribute) => `${tribute.fullName} ${tribute.relationship} ${tribute.message}`.toLowerCase().includes(query));
+    } catch (error) {
+      activeTributes = [];
+      emptyState.hidden = false;
+      emptyState.textContent = 'Tributes are temporarily unavailable. Please try again later.';
+    }
     tributeList.replaceChildren();
     activeTributes.slice(0, visibleCount).forEach((tribute) => {
       const card = document.createElement('article');
@@ -116,10 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     carouselIndex = 0;
     updateCarousel();
     restartCarouselTimer();
+    if (activeTributes.length > 0) emptyState.textContent = 'No tributes yet. Be the first to share a memory.';
     emptyState.hidden = activeTributes.length > 0;
     loadMore.hidden = activeTributes.length <= visibleCount;
   };
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     document.querySelector('#name-error').textContent = '';
     document.querySelector('#message-error').textContent = '';
@@ -129,15 +144,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!nameInput.value.trim()) { document.querySelector('#name-error').textContent = 'Please enter your name.'; valid = false; }
     if (!messageInput.value.trim()) { document.querySelector('#message-error').textContent = 'Please share a tribute.'; valid = false; }
     if (!valid) { notification.textContent = 'Please check the required fields.'; notification.classList.add('error'); return; }
-    const tributes = getTributes();
-    tributes.unshift({ fullName: nameInput.value.trim(), relationship: relationshipInput.value.trim(), message: messageInput.value.trim(), createdAt: new Date().toISOString() });
-    saveTributes(tributes);
-    form.reset();
-    updateWordCount();
-    visibleCount = pageSize;
-    carouselIndex = 0;
-    notification.textContent = 'Your tribute has been added. Thank you for sharing.';
-    renderTributes();
+    try {
+      await saveTribute({ fullName: nameInput.value.trim(), relationship: relationshipInput.value.trim(), message: messageInput.value.trim() });
+      form.reset();
+      updateWordCount();
+      visibleCount = pageSize;
+      carouselIndex = 0;
+      notification.textContent = 'Your tribute has been added. Thank you for sharing.';
+      await renderTributes();
+    } catch (error) {
+      notification.textContent = error.message;
+      notification.classList.add('error');
+    }
   });
   searchInput.addEventListener('input', () => { visibleCount = pageSize; carouselIndex = 0; renderTributes(); });
   loadMore.addEventListener('click', () => { visibleCount += pageSize; renderTributes(); });
