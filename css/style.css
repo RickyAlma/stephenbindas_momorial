@@ -109,8 +109,11 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 .guestbook-links { display: flex; align-items: center; gap: 24px; color: var(--ivory); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
 .guestbook-links a:not(.button) { opacity: .82; }
 .guestbook-links a:not(.button):hover { color: var(--gold); opacity: 1; }
+.guestbook-links .button { color: var(--ivory); border-color: var(--gold); white-space: nowrap; }
+.guestbook-links .button:hover { background: var(--gold); color: #fff; }
 .all-tributes-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 20px; }
 .list-header h2 { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: normal; }
-.all-tributes-list .tribute-card { min-height: 0; }
+.all-tributes-list .tribute-card { min-height: 0; padding: 26px; }
+.all-tributes-list .tribute-card h3 { margin: 0; color: #fff8ef; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: normal; line-height: 1.2; }
 @media (max-width: 520px) { .tribute-carousel { gap: 10px; }.carousel-control { flex-basis: 36px; width: 36px; height: 36px; font-size: 1.6rem; }.tribute-card { padding: 24px 20px; }.tribute-card p { line-height: 1.65; }.guestbook-main { padding-top: 120px; } }
 @media (max-width: 700px) { .guestbook-links { gap: 10px 16px; flex-wrap: wrap; justify-content: flex-end; font-size: .65rem; }.guestbook-links .button { min-height: 40px; padding: 9px 12px; } }
