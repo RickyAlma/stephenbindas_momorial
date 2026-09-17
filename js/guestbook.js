@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const search = document.querySelector('#guestbook-search');
   const status = document.querySelector('#guestbook-status');
   let tributes = [];
+  const previewLength = 300;
 
   const formatDate = (date) => new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(date));
   const render = () => {
@@ -18,8 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
       meta.className = 'tribute-meta';
       meta.textContent = [tribute.relationship, formatDate(tribute.createdAt)].filter(Boolean).join('  •  ');
       const message = document.createElement('p');
-      message.textContent = tribute.message;
+      const isLong = tribute.message.length > previewLength;
+      message.textContent = isLong ? `${tribute.message.slice(0, previewLength).trim()}...` : tribute.message;
       card.append(title, meta, message);
+      if (isLong) {
+        const readMore = document.createElement('button');
+        readMore.className = 'read-more';
+        readMore.type = 'button';
+        readMore.textContent = 'Read more';
+        readMore.addEventListener('click', () => {
+          const expanded = readMore.getAttribute('aria-expanded') === 'true';
+          message.textContent = expanded ? `${tribute.message.slice(0, previewLength).trim()}...` : tribute.message;
+          readMore.textContent = expanded ? 'Read more' : 'Show less';
+          readMore.setAttribute('aria-expanded', String(!expanded));
+        });
+        readMore.setAttribute('aria-expanded', 'false');
+        card.append(readMore);
+      }
       list.append(card);
     });
     status.textContent = matches.length ? `${matches.length} ${matches.length === 1 ? 'tribute' : 'tributes'}` : 'No tributes found.';
