@@ -101,6 +101,10 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 .tribute-card { min-height: 0; }
 .all-tributes-link { display: inline-flex; margin-top: 18px; border-color: #d9a875; color: #f7d8b8; }
 .all-tributes-link:hover { background: #d9a875; color: #241614; }
+.tribute-list .tribute-card h4,
+.all-tributes-list .tribute-card h3 { display: block; margin: 0; color: #fff8ef; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 2.1rem); font-weight: normal; line-height: 1.2; }
+.all-tributes-link { background: #d9a875; color: #241614; font-weight: bold; }
+.all-tributes-link:hover { background: #edc18f; color: #241614; }
 .guestbook-page { min-height: 100vh; background: var(--paper); }
 .guestbook-main { padding: 150px 0 90px; }
 .guestbook-heading { max-width: 720px; margin-bottom: 45px; }
@@ -117,3 +121,4 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 .all-tributes-list .tribute-card h3 { margin: 0; color: #fff8ef; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight: normal; line-height: 1.2; }
 @media (max-width: 520px) { .tribute-carousel { gap: 10px; }.carousel-control { flex-basis: 36px; width: 36px; height: 36px; font-size: 1.6rem; }.tribute-card { padding: 24px 20px; }.tribute-card p { line-height: 1.65; }.guestbook-main { padding-top: 120px; } }
 @media (max-width: 700px) { .guestbook-page .nav { flex-wrap: wrap; gap: 12px; padding-block: 12px; }.guestbook-page .brand { width: 100%; }.guestbook-links { width: 100%; gap: 10px 16px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 4px; font-size: .65rem; }.guestbook-links a { flex: 0 0 auto; }.guestbook-links .button { min-height: 40px; padding: 9px 12px; }.guestbook-main { padding-top: 165px; } }
+@media (max-width: 520px) { .all-tributes-link { display: flex; width: 100%; margin-top: 24px; } .tribute-list .tribute-card h4 { font-size: 1.45rem; } }
