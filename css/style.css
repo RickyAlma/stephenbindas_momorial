@@ -131,3 +131,12 @@ input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px r
 @media (max-width: 520px) { .tribute-carousel { gap: 10px; }.carousel-control { flex-basis: 36px; width: 36px; height: 36px; font-size: 1.6rem; }.tribute-card { padding: 24px 20px; }.tribute-card p { line-height: 1.65; }.guestbook-main { padding-top: 120px; } }
 @media (max-width: 700px) { .guestbook-page .nav { flex-wrap: wrap; gap: 12px; padding-block: 12px; }.guestbook-page .brand { width: 100%; }.guestbook-links { width: 100%; gap: 10px 16px; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 4px; font-size: .65rem; }.guestbook-links a { flex: 0 0 auto; }.guestbook-links .button { min-height: 40px; padding: 9px 12px; }.guestbook-main { padding-top: 165px; } }
 @media (max-width: 520px) { .all-tributes-link { display: flex; width: 100%; margin-top: 24px; } .tribute-list .tribute-card h4 { font-size: 1.45rem; } }
+@media (max-width: 700px) {
+	.tribute-list-wrap.reveal,
+	.tribute-list-wrap.reveal.is-visible { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+	.tribute-list .tribute-card .tribute-author-name,
+	.guestbook-feed .tribute-card .tribute-author-name { display: block !important; visibility: visible !important; opacity: 1 !important; color: #fff8ef !important; }
+	.tribute-list-wrap .all-tributes-link { display: flex !important; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 1; width: 100%; margin-top: 24px; background: #d9a875; color: #241614; }
+	.guestbook-page .guestbook-links { overflow: visible; flex-wrap: wrap; }
+	.guestbook-page .guestbook-links .button { display: inline-flex !important; visibility: visible !important; opacity: 1 !important; background: #d9a875; color: #241614; }
+}
