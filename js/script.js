@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const restartCarouselTimer = () => {
     window.clearInterval(carouselTimer);
-    if (visibleTributeCount() > 1) carouselTimer = window.setInterval(() => moveCarousel(1), 6500);
+    if (visibleTributeCount() > 1) carouselTimer = window.setInterval(() => moveCarousel(1), 14000);
   };
   const renderTributes = async () => {
     const query = searchInput.value.trim().toLowerCase();
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   searchInput.addEventListener('input', () => { visibleCount = pageSize; carouselIndex = 0; renderTributes(); });
-  loadMore.addEventListener('click', () => { visibleCount += pageSize; renderTributes(); });
+  loadMore.addEventListener('click', () => { visibleCount = activeTributes.length; renderTributes(); });
   carouselPrev.addEventListener('click', () => { moveCarousel(-1); restartCarouselTimer(); });
   carouselNext.addEventListener('click', () => { moveCarousel(1); restartCarouselTimer(); });
   carousel.addEventListener('mouseenter', () => window.clearInterval(carouselTimer));
